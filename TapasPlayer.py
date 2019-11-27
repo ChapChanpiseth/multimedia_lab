@@ -406,8 +406,8 @@ class TapasPlayer(object):
         self.last_fragment_size = len(data)
         self.downloaded_bytes += len(data)
         self.downloaded_segments += 1
-	    real_seg_dur = self.parser.getRealSegmentDuration(self.cur_index)
-        debug(DEBUG, '%s __got_request: bwe: %s/s (fragment size: %s)', self, 
+        self.real_seg_dur = self.parser.getRealSegmentDuration(self.cur_index)
+        self.debug(DEBUG, '%s __got_request: bwe: %s/s (fragment size: %s)', self, 
             format_bytes(self.bwe), format_bytes(len(data)))
         playlist = self.parser.playlists[self.getCurrentLevel()]
         #self.queuedTime = self.media_engine.getQueuedTime() + self.parser.getFragmentDuration()
@@ -422,7 +422,7 @@ class TapasPlayer(object):
         self._onNewSegment()
         #Passing player parameters at the controller to calculate the control action
         self.updateFeedback(flag_check_buffering=False)
-	self.cur_index += 1
+        self.cur_index += 1
         #calc control action
         self.controller.setControlAction(self.controller.calcControlAction())
         # set new level
